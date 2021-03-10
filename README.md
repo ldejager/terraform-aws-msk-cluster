@@ -90,7 +90,7 @@ No Modules.
 | client\_subnets | A list of subnets to connect to in client VPC | `list(string)` | n/a | yes |
 | cloudwatch\_logs\_group | Name of the Cloudwatch Log Group to deliver logs to. | `string` | `""` | no |
 | cluster\_name | Name of the MSK cluster. | `string` | n/a | yes |
-| enable\_client\_authentication | Enable client authentication. Default value: false. | `string` | `false` | no |
+| enable\_client\_authentication | Enable client authentication. Default value: false. | `bool` | `false` | no |
 | encryption\_at\_rest\_kms\_key\_arn | You may specify a KMS key short ID or ARN (it will always output an ARN) to use for encrypting your data at rest. If no key is specified, an AWS managed KMS ('aws/msk' managed service) key will be used for encrypting the data at rest. | `string` | `""` | no |
 | encryption\_in\_transit\_client\_broker | Encryption setting for data in transit between clients and brokers. Valid values: TLS, TLS\_PLAINTEXT, and PLAINTEXT. Default value is TLS\_PLAINTEXT. | `string` | `"TLS_PLAINTEXT"` | no |
 | encryption\_in\_transit\_in\_cluster | Whether data communication among broker nodes is encrypted. Default value: true. | `bool` | `true` | no |

@@ -109,7 +109,7 @@ variable "firehose_logs_delivery_stream" {
 
 variable "enable_client_authentication" {
   description = "Enable client authentication. Default value: false."
-  type        = string
+  type        = bool
   default     = false
 }
 
