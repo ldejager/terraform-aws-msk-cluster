@@ -1,6 +1,9 @@
 locals {
-  server_properties = join("\n", [for k, v in var.server_properties : format("%s = %s", k, v)])
-  enable_logs       = var.s3_logs_bucket != "" || var.cloudwatch_logs_group != "" || var.firehose_logs_delivery_stream != "" ? ["true"] : []
+  server_properties            = join("\n", [for k, v in var.server_properties : format("%s = %s", k, v)])
+  enable_logs                  = var.s3_logs_bucket != "" || var.cloudwatch_logs_group != "" || var.firehose_logs_delivery_stream != "" ? ["true"] : []
+  enable_client_authentication = var.enable_client_authentication
+  client_authentication        = local.enable_client_authentication ? 1 : 0
+  certificate_authority_arns   = var.certificate_authority_arns
 }
 
 terraform {
@@ -121,6 +124,15 @@ resource "aws_msk_cluster" "this" {
       }
       node_exporter {
         enabled_in_broker = var.prometheus_node_exporter
+      }
+    }
+  }
+
+  dynamic "client_authentication" {
+    for_each = local.client_authentication == 1 ? ["enabled"] : []
+    content {
+      tls {
+        certificate_authority_arns = local.certificate_authority_arns
       }
     }
   }
